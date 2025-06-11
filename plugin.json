@@ -1,10 +1,10 @@
 {
-    "name": "My plugin",
+    "name": "Langfuse Connector",
     "version": "0.0.1",
-    "description": "Description of my_plugin.",
-    "author_name": "Me",
-    "author_url": "https://mywebsite.me",
-    "plugin_url": "https://github.com/my_name/my_plugin",
-    "tags": "cat, template, example",
-    "thumb": "https://raw.githubusercontent.com/my_repo_path/my_plugin.png"
+    "description": "Langfuse Connector Plugin for Cheshire Cat.",
+    "author_name": "Net7",
+    "author_url": "https://www.netseven.it/",
+    "plugin_url": "https://github.com/net7/langfuse-connector",
+    "tags": "langfuse, trace, observability",
+    "thumb": "https://raw.githubusercontent.com/net7/langfuse-connector/main/logo.png"
 }

@@ -1,26 +1,36 @@
-# My plugin
+# Langfuse Connector for Cheshire Cat
 
-[![awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=awesome+plugin&color=383938&style=for-the-badge&logo=cheshire_cat_ai)](https://)  
-[![Awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=Awesome+plugin&color=000000&style=for-the-badge&logo=cheshire_cat_ai)](https://)  
-[![awesome plugin](https://custom-icon-badges.demolab.com/static/v1?label=&message=awesome+plugin&color=F4F4F5&style=for-the-badge&logo=cheshire_cat_black)](https://)
+Integrates [Langfuse](https://langfuse.com/) with the Cheshire Cat AI to provide detailed, real-time tracing and observability for all Large Language Model (LLM) interactions.
 
-Write here all the useful information about your plugin.
+This plugin allows you to monitor costs, debug issues, and gain deep insights into your AI's performance by capturing every LLM execution within your Langfuse project.
 
-This repository is the template to automate the release of official Cheshire Cat AI plugins. 
+## Features
 
-## Usage
+- **Automatic Tracing**: Automatically captures every LLM call made through the Cheshire Cat.
+- **Rich Context**: Each trace includes the user's input, the final AI output, the `user_id`, and the `session_id` to group interactions by conversation.
+- **Easy Configuration**: Set up the integration in seconds through the Cheshire Cat's admin panel.
+- **Self-Hosting Support**: Works with both Langfuse Cloud and self-hosted instances.
 
-1. Create a new repository clicking on the `Use this template` button.
-2. Clone your new repo directly in the Cat's `plugins` folder.
-3. Run the `setup.py` script:
-```bash
-python setup.py
-```
-The script will prompt you to write the name of your plugin and make an initial setup setting the name in the files.
+## Installation and Configuration
 
-4. Start developing!
+1.  **Place the Plugin**: Add the `langfuse_connector` folder into your Cheshire Cat's `core/cat/plugins` directory.
+2.  **Install Dependencies**: The plugin uses the `langfuse` library, which will be installed when activating it.
+3.  **Configure in Admin Panel**:
+    - Open the Cheshire Cat's admin panel in your browser.
+    - Navigate to the "Plugins" section.
+    - Find the "Langfuse Connector" plugin and click on its settings icon.
+    - Enter your **Langfuse Public Key**, **Langfuse Secret Key**, and (if necessary) your self-hosted **Langfuse Host**.
+    - Activate the `trace_enabled` option to start tracing.
+    - Save the settings.
 
-> **Important**
-> A new release of your plugin is triggered every time you set a new `version` in the `plugin.json` file.
-> Please, remember to set it correctly every time you want to release an update.
+The plugin will now automatically start tracing all subsequent LLM interactions.
+
+## How It Works
+
+This plugin uses a simple and robust hook-based approach:
+
+-   `agent_prompt_prefix`: Just before an LLM is called, this hook injects the `Langfuse CallbackHandler`. This handler is responsible for automatically creating a trace when the LLM is executed.
+-   `before_cat_sends_message`: At the end of the interaction, this hook finds the trace created by the handler and updates it with the original user input and the final AI output, ensuring the trace is complete and accurate. It also handles cleanup to prepare for the next interaction.
+
+This design ensures that tracing is activated only when needed and that all relevant information is captured correctly without interfering with other plugins.
 
