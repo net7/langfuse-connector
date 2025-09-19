@@ -1,1 +1,1 @@
-langfuse==2.60.8
+langfuse>=3,<4

@@ -1,6 +1,6 @@
 {
     "name": "Langfuse Connector",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Langfuse Connector Plugin for Cheshire Cat.",
     "author_name": "Net7",
     "author_url": "https://www.netseven.it/",
