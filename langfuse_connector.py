@@ -62,7 +62,10 @@ def before_cat_sends_message(message: dict, cat: StrayCat) -> dict:
     try:
         with langfuse.start_as_current_span(name="root-trace", input=user_input) as root_span:
             with propagate_attributes(user_id=cat.user_id):
+                # Add the trace ID to the cat working_memory so another plugin can use it
                 cat.working_memory.trace_id = root_span.trace_id
+                # Add the trace ID to the response message for client-side reference
+                message.langfuse_trace_id = root_span.trace_id
 
                 span_counter = 0
                 for interaction in interactions:
