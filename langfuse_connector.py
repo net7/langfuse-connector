@@ -46,6 +46,8 @@ def before_cat_sends_message(message: dict, cat: StrayCat) -> dict:
     """
     Updates and flushes the main trace before sending the message.
     """
+    if message.get("type") == "notification":
+        return message
     langfuse = _get_client()
 
     if not langfuse:
